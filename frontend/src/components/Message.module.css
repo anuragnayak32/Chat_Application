@@ -1,0 +1,127 @@
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 2px 0;
+  position: relative;
+}
+
+.row:hover .actions {
+  opacity: 1;
+}
+
+.row.own {
+  justify-content: flex-end;
+}
+
+.row.own .bubble {
+  background: rgba(91, 138, 245, 0.15);
+  border-color: rgba(91, 138, 245, 0.3);
+}
+
+.pinIndicator {
+  font-size: 11px;
+  align-self: flex-start;
+  padding-top: 6px;
+  opacity: 0.7;
+}
+
+.bubble {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  max-width: 72%;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.pinned .bubble {
+  border-color: rgba(240, 165, 0, 0.3);
+  background: var(--pin-dim);
+}
+
+.sender {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 3px;
+  font-family: var(--font-mono);
+}
+
+.content {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.deletedText {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.time {
+  display: block;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+.actions {
+  opacity: 0;
+  transition: opacity 0.15s;
+  position: relative;
+}
+
+.menuBtn {
+  color: var(--text-muted);
+  font-size: 18px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  letter-spacing: 1px;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.menuBtn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.menu {
+  position: fixed;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px;
+  min-width: 160px;
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 7px 12px;
+  font-size: 13px;
+  color: var(--text);
+  border-radius: 5px;
+  transition: background 0.1s;
+}
+
+.menu button:hover {
+  background: var(--surface);
+}
+
+.menu button.danger {
+  color: var(--danger);
+}
+
+.menu button.danger:hover {
+  background: var(--danger-dim);
+}

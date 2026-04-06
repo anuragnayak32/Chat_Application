@@ -1,0 +1,10 @@
+{
+  "watch": [".", "!(node_modules)"],
+  "ignore": ["node_modules", ".git", "dist"],
+  "ext": "js",
+  "delay": 800,
+  "exec": "node server.js",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

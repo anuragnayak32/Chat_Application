@@ -1,0 +1,92 @@
+.container {
+  padding: 8px 16px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.displayMode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.name {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+.editBtn {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.15s;
+  margin-left: auto;
+}
+
+.editBtn:hover {
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.editMode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input {
+  flex: 1;
+  max-width: 200px;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  outline: none;
+  font-family: var(--font-mono);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.saveBtn {
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.saveBtn:hover {
+  background: var(--accent-hover);
+}
+
+.cancelBtn {
+  background: var(--surface);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+}
+
+.cancelBtn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
