@@ -27,7 +27,10 @@ const io = new Server(server, {
   reconnectionAttempts: 5,
 });
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}));
 app.use(express.json());
 
 // Make io accessible in route handlers
