@@ -13,59 +13,59 @@ const userRoutes = require("./routes/users");
 const app = express();
 const server = http.createServer(app);
 
+// ✅ Safe CORS origin
+const allowedOrigin =
+  process.env.NODE_ENV === "production"
+    ? process.env.FRONTEND_URL
+    : "http://localhost:5173";
+
+// ✅ Socket.io
 const io = new Server(server, {
   cors: {
-    origin: process.env.NODE_ENV === "production" 
-      ? process.env.FRONTEND_URL || "*"
-      : "http://localhost:5173",
+    origin: allowedOrigin,
     methods: ["GET", "POST"],
     credentials: true,
   },
-  reconnection: true,
-  reconnectionDelay: 1000,
-  reconnectionDelayMax: 5000,
-  reconnectionAttempts: 5,
 });
 
+// ✅ Express CORS
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: allowedOrigin,
   credentials: true
 }));
+
 app.use(express.json());
 
-// Make io accessible in route handlers
+// Make io accessible in routes
 app.set("io", io);
 
+// Routes
 app.use("/messages", messageRoutes);
 app.use("/users", userRoutes);
 
-// Health check
-app.get("/", (req, res) => res.json({ status: "ok", message: "ChatApp Backend" }));
+// ✅ SIMPLE health check (important for Railway)
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
 
-// Socket.io connection handler
+// Socket connection
 io.on("connection", (socket) => {
   console.log(`✓ Client connected: ${socket.id}`);
-  
+
   socket.on("disconnect", () => {
     console.log(`✗ Client disconnected: ${socket.id}`);
   });
-
-  socket.on("error", (error) => {
-    console.error(`Socket error [${socket.id}]:`, error);
-  });
 });
 
-// MongoDB connection and server startup
+// MongoDB + Server start
 mongoose
-  .connect(process.env.MONGO_URI , {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("✓ MongoDB connected");
-    server.listen( PORT, "0.0.0.0", () => {
+
+    server.listen(PORT, "0.0.0.0", () => {
       console.log(`✓ Server running on port ${PORT}`);
-      console.log(`  Environment: ${process.env.NODE_ENV || "development"}`);
+      console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
     });
   })
   .catch((err) => {
@@ -75,10 +75,10 @@ mongoose
 
 // Graceful shutdown
 process.on("SIGTERM", () => {
-  console.log("SIGTERM received, shutting down gracefully...");
+  console.log("SIGTERM received, shutting down...");
   server.close(() => {
-    console.log("Server closed");
-    mongoose.connection.close();
-    process.exit(0);
+    mongoose.connection.close(false, () => {
+      process.exit(0);
+    });
   });
 });
